@@ -1,0 +1,7 @@
+name: SizCraft-Core
+version: '${project.version}'
+main: com.sizcraft.core.CoreMain
+api-version: 1.19
+authors: [ SizGen ]
+description: The core of all the SizCraft plugins
+website: https://www.sizcraft.com
