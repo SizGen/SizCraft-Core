@@ -9,6 +9,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public final class CoreMain extends JavaPlugin {
 
@@ -18,7 +20,11 @@ public final class CoreMain extends JavaPlugin {
     @Override
     public void onEnable() {
 
-        loadFiles();
+        try {
+            loadFiles();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         registerManagers();
         registerCommands();
@@ -26,28 +32,15 @@ public final class CoreMain extends JavaPlugin {
 
     }
 
-    private void loadFiles() {
+    private void loadFiles() throws IOException {
 
         getDataFolder().mkdirs();
-//            configFile = new ConfigFile(this);
-//            messageFile = new MessageFile(this);
-//
-////            FileUtils.copyToFile(this.getResource("messages.yml"), new File(getDataFolder() + "/messages.yml"));
-//
+
+            configFile = new ConfigFile(this);
+            messageFile = new MessageFile(this);
+
 //            configFile.reload();
 //            messageFile.reload();
-//
-//            configFile.save();
-//            messageFile.save();
-
-        try {
-            saveResource("messages.yml", false);
-            File file = new File(getDataFolder(), "messages.yml");
-            YamlConfiguration fileConfig = YamlConfiguration.loadConfiguration(file);
-            fileConfig.save(file);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     private void registerManagers() { }

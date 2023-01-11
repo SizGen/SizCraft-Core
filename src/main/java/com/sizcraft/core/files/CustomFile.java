@@ -9,15 +9,15 @@ import java.io.IOException;
 public abstract class CustomFile {
 
     private final String name;
-    private File file;
+    private final File file;
     private YamlConfiguration configuration;
 
     public CustomFile(CoreMain plugin, String name) throws IOException {
         this.name = name;
         String nameWithExtension = name + ".yml";
 
+        plugin.saveResource(nameWithExtension, false);
         this.file = new File(plugin.getDataFolder(), nameWithExtension);
-        if (!file.exists()) plugin.saveResource(nameWithExtension, true);
 
         this.configuration = YamlConfiguration.loadConfiguration(file);
     }
