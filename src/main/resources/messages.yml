@@ -1,1 +1,3 @@
-messages:
+player-not-online: "&4[ERROR] That player is not online!"
+not-a-player: "&4[ERROR] You have to be a player to execute this command!"
+give: "Given {player} {amount} {item}"

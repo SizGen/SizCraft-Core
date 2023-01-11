@@ -17,7 +17,7 @@ public abstract class CustomFile {
         String nameWithExtension = name + ".yml";
 
         this.file = new File(plugin.getDataFolder(), nameWithExtension);
-        if (!file.exists()) plugin.saveResource(nameWithExtension, true);
+        plugin.saveResource(nameWithExtension, false);
 
         this.configuration = YamlConfiguration.loadConfiguration(file);
     }
@@ -41,6 +41,10 @@ public abstract class CustomFile {
 
     public YamlConfiguration getConfiguration() {
         return configuration;
+    }
+
+    public String getString(String path) {
+        return getConfiguration().getString(path);
     }
 
 }
