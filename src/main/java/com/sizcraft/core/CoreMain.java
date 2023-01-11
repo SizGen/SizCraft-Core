@@ -3,14 +3,15 @@ package com.sizcraft.core;
 import com.sizcraft.core.commands.GiveCommand;
 import com.sizcraft.core.files.ConfigFile;
 import com.sizcraft.core.files.MessageFile;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.io.IOException;
 
 public final class CoreMain extends JavaPlugin {
 
-    // Files
     private ConfigFile configFile;
     private MessageFile messageFile;
 
@@ -28,17 +29,22 @@ public final class CoreMain extends JavaPlugin {
     private void loadFiles() {
 
         getDataFolder().mkdirs();
+//            configFile = new ConfigFile(this);
+//            messageFile = new MessageFile(this);
+//
+////            FileUtils.copyToFile(this.getResource("messages.yml"), new File(getDataFolder() + "/messages.yml"));
+//
+//            configFile.reload();
+//            messageFile.reload();
+//
+//            configFile.save();
+//            messageFile.save();
 
         try {
-            configFile = new ConfigFile(this);
-            messageFile = new MessageFile(this);
-
-            configFile.reload();
-            messageFile.reload();
-
-            configFile.save();
-            messageFile.save();
-
+            saveResource("messages.yml", false);
+            File file = new File(getDataFolder(), "messages.yml");
+            YamlConfiguration fileConfig = YamlConfiguration.loadConfiguration(file);
+            fileConfig.save(file);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
